@@ -1,0 +1,35 @@
+campos:
+  # 1️⃣ FECHA
+  Fecha_expedicion:
+    tipo: fecha          # indica que hay que parsear la fecha
+    formato: "%d/%m/%Y"  # salida deseada → 25/04/2025
+
+  # 2️⃣ CAMPOS NUMÉRICOS (sin símbolos)
+  base_imponible:
+    tipo: importe        # eliminar €, %, espacios, miles, etc.
+    minimo: 0            # valor debe ser ≥ 0
+
+  importe_iva:
+    tipo: importe
+    minimo: 0
+
+  total:
+    tipo: importe
+    minimo: 0
+
+  # 3️⃣ NIF SIN PREFIJO DE PAÍS
+  emisor_nif:
+    tipo: nif            # valida el formato NIF‐CIF español
+    strip_prefix: ["ES"] # elimina “ES” (mayús/minús) si aparece
+  emisor_nom:
+    tipo: nombre_prop      # para detectar “Apellido, Nombre”
+  
+  
+  destinatario_nif:
+    tipo: nif
+    strip_prefix: ["NIF:", "NIF "]  # Elimina estos prefijos
+    keep_country_code: true         # Conserva el código de país (ej: ES, IT)
+
+  tipo_iva:
+    tipo: entero      # Nueva función para extraer enteros
+    remove_symbols: ["%", "sobre"]  # Elimina estos textos
