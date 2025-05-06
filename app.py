@@ -85,7 +85,7 @@ def _clean_date(value: str, fmt: str) -> Tuple[str, bool]:
 
 def _clean_amount(value: str) -> Tuple[Any, bool]:
     try:
-        clean = re.sub(r"[€%\s]", "", str(value))
+        clean = re.sub(r"[^0-9.,+\-]", "", str(value), flags=re.IGNORECASE)
         clean = clean.replace(".", "").replace(",", ".")
         amount = Decimal(clean)
         return float(amount), True
